@@ -19,3 +19,17 @@ export default function Home() {
     </div>
   );
 }
+
+// function Bot() {
+//   const { data } = useQuery({
+//     queryKey: ["bot"],
+//     queryFn: (): Promise<{ name: string; profileImage: string }> => {
+//       return fetch("/api/bot").then((res) => res.json());
+//     },
+//   });
+//   return data ? (
+//     <div>
+//       <ProfileImage src={data.profileImage} alt={data.name} />
+//     </div>
+//   ) : null;
+// }
