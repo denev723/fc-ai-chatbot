@@ -12,7 +12,7 @@ interface Props {
 }
 
 export default function Message({
-  message: { sender, content, profileImage, createdAt: at },
+  message: { sender, content, profileImage, createdAt: at, senderName },
   mine,
   first,
 }: Props) {
@@ -34,7 +34,7 @@ export default function Message({
       <div className="flex flex-col">
         {!mine && first && (
           <TextView className="mb-7" size="md">
-            {sender}
+            {senderName}
           </TextView>
         )}
         <motion.div
