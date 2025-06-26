@@ -3,6 +3,7 @@ import ProfileImage from "@/presentationals/ProfileImage";
 import TextView from "@/presentationals/TextView";
 import { formatTime } from "@/util/time";
 import { twMerge } from "tailwind-merge";
+import { motion } from "framer-motion";
 
 interface Props {
   mine: boolean;
@@ -36,11 +37,23 @@ export default function Message({
             {sender}
           </TextView>
         )}
-        <MessageBubble mine={mine} first={first}>
-          {content}
-        </MessageBubble>
+        <motion.div
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          transition={{ type: "spring", stiffness: 500, damping: 20 }}
+        >
+          <MessageBubble mine={mine} first={first}>
+            {content}
+          </MessageBubble>
+        </motion.div>
       </div>
-      <TextView size="sm">{formatTime(at)}</TextView>
+      <motion.span
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.6 }}
+      >
+        <TextView size="sm">{formatTime(at)}</TextView>
+      </motion.span>
     </div>
   );
 }

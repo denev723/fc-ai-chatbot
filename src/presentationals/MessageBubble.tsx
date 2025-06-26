@@ -14,7 +14,7 @@ export default function MessageBubble({
   return (
     <p
       className={twMerge(
-        "py-8 px-16 text-15 rounded-16",
+        "py-8 text-15 rounded-16",
         mine ? classes["mine"] : classes["notMine"],
         mine && first ? "rounded-ee-8" : "",
         !mine && first ? "rounded-ss-8" : ""
@@ -26,6 +26,6 @@ export default function MessageBubble({
 }
 
 const classes = {
-  mine: "bg-main text-white",
-  notMine: "bg-bg text-black",
+  mine: "bg-main text-white px-18",
+  notMine: "bg-bg text-black px-16",
 };
