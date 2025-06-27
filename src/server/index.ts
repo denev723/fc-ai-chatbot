@@ -6,7 +6,7 @@ import { WebSocketServer } from "ws";
 import { makeExecutableSchema } from "@graphql-tools/schema";
 import { resolvers, typeDefs } from "@/server/schema";
 import { ApolloServer } from "@apollo/server";
-import { useServer } from "graphql-ws/lib/use/ws";
+import { useServer as createWSServer } from "graphql-ws/lib/use/ws";
 import { expressMiddleware } from "@as-integrations/express4";
 import cors from "cors";
 
@@ -23,7 +23,7 @@ async function start() {
     path: "/graphql",
   });
   const schema = makeExecutableSchema({ typeDefs, resolvers });
-  const serverCleanup = useServer({ schema }, wsServer);
+  const serverCleanup = createWSServer({ schema }, wsServer);
   const apolloServer = new ApolloServer({
     schema,
     plugins: [
