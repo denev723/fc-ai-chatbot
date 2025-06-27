@@ -2,6 +2,7 @@ import Input from "@/presentationals/Input";
 import SendIcon from "@/assets/icons/send.svg";
 import { useState } from "react";
 import { gql, useMutation } from "@apollo/client";
+import useForm from "@/hooks/useForm";
 
 const SEND_MESSAGE = gql`
   mutation SendMessage($message: String!) {
@@ -13,25 +14,19 @@ const SEND_MESSAGE = gql`
 
 // TODO: Implement send message
 export default function MessageInput() {
-  const [content, setContent] = useState("");
+  const { register, handleSubmit } = useForm<{ content: string }>();
   const [sendMessage] = useMutation(SEND_MESSAGE);
 
-  const handleSendMessage = () => {
+  const handleSendMessage = ({ content }: { content: string }) => {
     sendMessage({ variables: { message: content } });
-    setContent("");
   };
 
   return (
-    <div className="relative">
-      <Input
-        className="w-full"
-        type="text"
-        value={content}
-        onChange={(e) => setContent(e.currentTarget.value)}
-      />
-      <button className="absolute top-13 right-15" onClick={handleSendMessage}>
+    <form className="relative" onSubmit={handleSubmit(handleSendMessage)}>
+      <Input className="w-full" type="text" {...register("content")} />
+      <button className="absolute top-13 right-15" type="submit">
         <SendIcon />
       </button>
-    </div>
+    </form>
   );
 }

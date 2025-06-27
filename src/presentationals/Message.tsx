@@ -1,7 +1,7 @@
 import MessageBubble from "@/presentationals/MessageBubble";
 import ProfileImage from "@/presentationals/ProfileImage";
 import TextView from "@/presentationals/TextView";
-import { formatTime } from "@/util/time";
+import { formatTime } from "@/utils/time";
 import { twMerge } from "tailwind-merge";
 import { motion } from "framer-motion";
 

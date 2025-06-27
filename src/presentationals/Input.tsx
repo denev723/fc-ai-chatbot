@@ -1,12 +1,12 @@
-import { InputHTMLAttributes } from "react";
+import { forwardRef, InputHTMLAttributes, Ref } from "react";
 import { twMerge } from "tailwind-merge";
 
 interface Props {}
 
-export default function Input({
-  className,
-  ...props
-}: InputHTMLAttributes<HTMLInputElement>) {
+const Input = forwardRef(function Input(
+  { className, ...props }: InputHTMLAttributes<HTMLInputElement>,
+  ref: Ref<HTMLInputElement>
+) {
   return (
     <input
       className={twMerge(
@@ -14,6 +14,9 @@ export default function Input({
         className
       )}
       {...props}
+      ref={ref}
     />
   );
-}
+});
+
+export default Input;

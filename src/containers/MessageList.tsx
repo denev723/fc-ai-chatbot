@@ -1,45 +1,11 @@
 import Message from "@/presentationals/Message";
-import { gql, useSubscription } from "@apollo/client";
-import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-
-const NEW_MESSAGE_SUBSCRIPTION = gql`
-  subscription NewMessage {
-    newMessage {
-      id
-      sender
-      message
-      createdAt
-    }
-  }
-`;
+import queryFactory from "@/queryFactory";
+import useMessages from "@/hooks/useMessages";
 
 export default function MessageList() {
-  const { data: bot } = useQuery({
-    queryKey: ["bot"],
-    queryFn: (): Promise<{ name: string; profileImage: string }> => {
-      return fetch("/api/bot").then((res) => res.json());
-    },
-  });
-  const [messages, setMessages] = useState<
-    Omit<Message, "senderName" | "profileImage">[]
-  >([]);
-  // TODO: data fetching
-  const { data } = useSubscription(NEW_MESSAGE_SUBSCRIPTION);
-
-  useEffect(() => {
-    const newMessage = data?.newMessage;
-    if (!newMessage) return;
-    setMessages((prev) => [
-      ...prev,
-      {
-        id: newMessage.id,
-        sender: newMessage.sender,
-        content: newMessage.message,
-        createdAt: newMessage.createdAt,
-      },
-    ]);
-  }, [data]);
+  const { data: bot } = useQuery(queryFactory.bot);
+  const { messages } = useMessages(bot);
 
   return (
     <div className="flex flex-col px-16 py-18">
