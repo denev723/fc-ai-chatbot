@@ -1,6 +1,6 @@
 import { gql } from "graphql-tag";
 import { PubSub } from "graphql-subscriptions";
-import { getAiResponse } from "@/server/openai";
+import { getAiResponse } from "./openai";
 
 const pubsub = new PubSub();
 
@@ -54,7 +54,7 @@ const publishAfterAIResponse = async (message: string) => {
   });
 };
 
-const makeNewMessage = (message: string, sender: Message["sender"]) => {
+const makeNewMessage = (message: string, sender: string) => {
   return {
     id: Math.random().toString(36).substring(2, 9),
     message,

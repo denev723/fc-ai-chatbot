@@ -43,9 +43,8 @@ export default function MessageList() {
 
   return (
     <div className="flex flex-col px-16 py-18">
-      {messages.map((message, index) => {
-        const first =
-          index === 0 || messages[index - 1].sender !== message.sender;
+      {messages.map((message, index, arr) => {
+        const first = index === 0 || arr[index - 1].sender !== message.sender;
         return (
           <Message
             key={message.id}

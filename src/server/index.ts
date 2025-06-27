@@ -4,7 +4,7 @@ import { createServer } from "http";
 import dotenv from "dotenv";
 import { WebSocketServer } from "ws";
 import { makeExecutableSchema } from "@graphql-tools/schema";
-import { resolvers, typeDefs } from "@/server/schema";
+import { resolvers, typeDefs } from "./schema";
 import { ApolloServer } from "@apollo/server";
 import { useServer as createWSServer } from "graphql-ws/lib/use/ws";
 import { expressMiddleware } from "@as-integrations/express4";
