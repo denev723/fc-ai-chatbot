@@ -53,11 +53,6 @@ jobs:
           container-name: ${{ env.CONTAINER_NAME }}
           image: ${{ steps.build-image.outputs.image }}
 
-      - name: Add environment variables to task definition
-        id: task-def-env
-        run: |
-          cat <<< $(jq '.containerDefinitions[0].environment += [{"name": "OPENAI_API_KEY", "value": "${{ secrets.OPENAI_API_KEY }}"}]' ${{ steps.task-def.outputs.task-definition }}) > ${{ steps.task-def.outputs.task-definition }}
-
       - name: Deploy Amazon ECS task definition
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
         with:
